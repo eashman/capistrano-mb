@@ -2,44 +2,44 @@ namespace :load do
   task :defaults do
 
     set :mb_recipes, %w(
-      aptitude
+      # aptitude
       bundler
-      crontab
-      dotenv
-      logrotate
-      migrate
-      nginx
-      postgresql
-      rbenv
-      seed
-      ssl
-      ufw
-      unicorn
-      user
-      version
+      # crontab
+      # dotenv
+      # logrotate
+      # migrate
+      # nginx
+      # postgresql
+      # rbenv
+      # seed
+      # ssl
+      # ufw
+      # unicorn
+      # user
+      # version
     )
 
     set :mb_privileged_user, "root"
 
-    set :mb_aptitude_packages,
-        "build-essential"                        => :all,
-        "curl"                                   => :all,
-        "debian-goodies"                         => :all,
-        "git-core"                               => :all,
-        "libpq-dev@ppa:pitti/postgresql"         => :all,
-        "libreadline-gplv2-dev"                  => :all,
-        "libssl-dev"                             => :all,
-        "libxml2"                                => :all,
-        "libxml2-dev"                            => :all,
-        "libxslt1-dev"                           => :all,
-        "nginx@ppa:nginx/stable"                 => :web,
-        "nodejs@ppa:chris-lea/node.js"           => :all,
-        "ntp"                                    => :all,
-        "postgresql-client@ppa:pitti/postgresql" => :all,
-        "postgresql@ppa:pitti/postgresql"        => :db,
-        "tklib"                                  => :all,
-        "ufw"                                    => :all,
-        "zlib1g-dev"                             => :all
+    # set :mb_aptitude_packages,
+    #     "build-essential"                        => :all,
+    #     "curl"                                   => :all,
+    #     "debian-goodies"                         => :all,
+    #     "git-core"                               => :all,
+    #     "libpq-dev@ppa:pitti/postgresql"         => :all,
+    #     "libreadline-gplv2-dev"                  => :all,
+    #     "libssl-dev"                             => :all,
+    #     "libxml2"                                => :all,
+    #     "libxml2-dev"                            => :all,
+    #     "libxslt1-dev"                           => :all,
+    #     "nginx@ppa:nginx/stable"                 => :web,
+    #     "nodejs@ppa:chris-lea/node.js"           => :all,
+    #     "ntp"                                    => :all,
+    #     "postgresql-client@ppa:pitti/postgresql" => :all,
+    #     "postgresql@ppa:pitti/postgresql"        => :db,
+    #     "tklib"                                  => :all,
+    #     "ufw"                                    => :all,
+    #     "zlib1g-dev"                             => :all
 
     set :mb_bundler_lockfile, "Gemfile.lock"
     set :mb_bundler_gem_install_command,
@@ -56,24 +56,24 @@ namespace :load do
     set :mb_nginx_force_https, false
     set :mb_nginx_redirect_hosts, {}
 
-    ask :mb_postgresql_password, nil, :echo => false
-    set :mb_postgresql_pool_size, 5
-    set :mb_postgresql_host, "localhost"
-    set :mb_postgresql_database,
-        -> { "#{application_basename}_#{fetch(:rails_env)}" }
-    set :mb_postgresql_user, -> { application_basename }
-    set :mb_postgresql_pgpass_path,
-        proc{ "#{shared_path}/config/pgpass" }
-    set :mb_postgresql_backup_path, -> {
-      "#{shared_path}/backups/postgresql-dump.dmp"
-    }
-    set :mb_postgresql_backup_exclude_tables, []
-    set :mb_postgresql_dump_options, -> {
-      options = fetch(:mb_postgresql_backup_exclude_tables).map do |t|
-        "-T #{t.shellescape}"
-      end
-      options.join(" ")
-    }
+    # ask :mb_postgresql_password, nil, :echo => false
+    # set :mb_postgresql_pool_size, 5
+    # set :mb_postgresql_host, "localhost"
+    # set :mb_postgresql_database,
+    #     -> { "#{application_basename}_#{fetch(:rails_env)}" }
+    # set :mb_postgresql_user, -> { application_basename }
+    # set :mb_postgresql_pgpass_path,
+    #     proc{ "#{shared_path}/config/pgpass" }
+    # set :mb_postgresql_backup_path, -> {
+    #   "#{shared_path}/backups/postgresql-dump.dmp"
+    # }
+    # set :mb_postgresql_backup_exclude_tables, []
+    # set :mb_postgresql_dump_options, -> {
+    #   options = fetch(:mb_postgresql_backup_exclude_tables).map do |t|
+    #     "-T #{t.shellescape}"
+    #   end
+    #   options.join(" ")
+    # }
 
     set :mb_rbenv_ruby_version, -> { IO.read(".ruby-version").strip }
     set :mb_rbenv_vars, -> {
@@ -107,27 +107,27 @@ namespace :load do
     set :bundle_binstubs, false
     set :bundle_flags, "--deployment --retry=3 --quiet"
     set :bundle_path, -> { shared_path.join("bundle") }
-    set :deploy_to, -> { "/home/deployer/apps/#{fetch(:application)}" }
+   # set :deploy_to, -> { "/home/deployer/apps/#{fetch(:application)}" }
     set :keep_releases, 10
-    set :linked_dirs, -> {
-        ["public/#{fetch(:assets_prefix, 'assets')}"] +
-        %w(
-          .bundle
-          log
-          tmp/pids
-          tmp/cache
-          tmp/sockets
-          public/.well-known
-          public/system
-        )
-    }
-    set :linked_files, -> {
-        [fetch(:mb_dotenv_filename)] +
-        %w(
-          config/database.yml
-          config/unicorn.rb
-        )
-    }
+    # set :linked_dirs, -> {
+    #     ["public/#{fetch(:assets_prefix, 'assets')}"] +
+    #     %w(
+    #       .bundle
+    #       log
+    #       tmp/pids
+    #       tmp/cache
+    #       tmp/sockets
+    #       public/.well-known
+    #       public/system
+    #     )
+    # }
+    # set :linked_files, -> {
+    #     [fetch(:mb_dotenv_filename)] +
+    #     %w(
+    #       config/database.yml
+    #       config/unicorn.rb
+    #     )
+    # }
     set :log_level, :debug
     set :migration_role, :app
     set :rails_env, -> { fetch(:stage) }
